@@ -43,20 +43,36 @@
   </div>
 
   <script>
+    //alert('hello')
     function getWeather() {
-      const location = document.getElementById('locationInput').value;
-      const url = `http://localhost:3000/?address=${location}`;
+  const location = document.getElementById('locationInput').value;
 
-      fetch(url)
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('weatherResult').innerHTML = data;
-        })
+  // Check if location is not empty before making the request
+  if (location.trim() === '') {
+    console.error('Location is empty.');
+    document.getElementById('weatherResult').innerHTML = 'Please enter a location.';
+    return;
+  }
+
+  const url = `http://localhost:5500/?address=${location}`;
+  const loc = location;
+
+  fetch(url)
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      // Now 'data' should be a JSON object
+      const message = `City Name: ${data.cityName}<br>Temperature: ${data.temperature}&deg;C<br>Sunset Time: ${data.sunsetTime}`;
+      document.getElementById('weatherResult').innerHTML = message;
+    })
         .catch(error => {
-          console.error('Error fetching weather data:', error);
+          console.log('Error fetching weather data:', error);
           document.getElementById('weatherResult').innerHTML = 'Error fetching weather data';
         });
-    }
+}
+//document.write('hi');
+
   </script>
 </body>
 
