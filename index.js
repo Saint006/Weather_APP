@@ -17,8 +17,8 @@ app.get('/',(req,res)=>{
         const cityName = data.name;
         const temperature = data.main.temp;
         const sunsetTime = new Date(data.sys.sunset * 1000).toLocaleTimeString();
-        const message = `City name:${cityName}<br> temp :${temperature}`
-        res.send(`<html><body><div id='container'><h1>${message}</h1></div></body></html>`);
+        const message = `City Name: ${cityName}<br>Temperature: ${temperature}&deg;C<br>Sunset Time: ${sunsetTime}`;
+        res.send(message);
 
     })
 .catch(error=>{
